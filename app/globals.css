@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    background-color: theme("colors.cream");
+    color: theme("colors.ink");
+  }
+
+  ::selection {
+    background-color: theme("colors.clay.light");
+    color: theme("colors.ink");
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.clay.DEFAULT");
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Shared, sitewide action styles - one warm (clay) and one cool (dust/sky)
+   accent from the same palette as everywhere else, so every primary button
+   across the store shares one deliberate, colorful treatment instead of a
+   flat single-tone default. */
+@layer components {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.85rem 1.85rem;
+    font-size: 0.875rem;
+    color: #f2ece1;
+    background-image: linear-gradient(135deg, #37332c 0%, #52473a 100%);
+    box-shadow: 0 10px 24px -10px rgba(55, 51, 44, 0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-image 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-image: linear-gradient(135deg, #93613d 0%, #bd7e56 55%, #7c93a2 100%);
+    box-shadow: 0 16px 32px -10px rgba(189, 126, 86, 0.55);
+    transform: translateY(-2px);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1.5px solid rgba(55, 51, 44, 0.15);
+    padding: 0.8rem 1.75rem;
+    font-size: 0.875rem;
+    color: #5c574c;
+    background-color: transparent;
+    transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+  }
+  .btn-outline:hover {
+    border-color: #93613d;
+    color: #93613d;
+    background-color: rgba(189, 126, 86, 0.06);
+  }
+
+  /* Soft layered color-wash background used behind hero/illustration
+     panels - the same dust/clay/sand palette, just large and blurred. */
+  .aura-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .aura-field::before,
+  .aura-field::after {
+    content: "";
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+  }
+  .aura-field::before {
+    width: 22rem;
+    height: 22rem;
+    top: -6rem;
+    right: -6rem;
+    background: radial-gradient(circle, rgba(167, 183, 195, 0.45), transparent 70%);
+  }
+  .aura-field::after {
+    width: 20rem;
+    height: 20rem;
+    bottom: -7rem;
+    left: -5rem;
+    background: radial-gradient(circle, rgba(189, 126, 86, 0.3), transparent 70%);
+  }
+
+  /* A bigger, more sculptural card for the auth + 404 pages - the "pot"
+     corner treatment (round at the top, settled at the bottom) scaled up,
+     sitting on the aura-field wash above. */
+  .card-pot {
+    position: relative;
+    border-radius: 2.5rem 2.5rem 1.25rem 1.25rem;
+    background-color: theme("colors.paper");
+    border: 1px solid rgba(55, 51, 44, 0.08);
+    box-shadow: 0 30px 70px -32px rgba(55, 51, 44, 0.28);
+  }
+
+  /* The one colorful, tactile moment on the auth pages: each OTP digit
+     glows sky-blue on focus and warms to clay once filled, so the code
+     visibly "fills in" digit by digit instead of sitting in flat boxes. */
+  .otp-digit {
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .otp-digit:focus {
+    border-color: theme("colors.sky.dark");
+    box-shadow: 0 0 0 4px rgba(111, 163, 199, 0.22);
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .otp-digit.is-filled {
+    border-color: theme("colors.clay.DEFAULT");
+    background-color: rgba(189, 126, 86, 0.08);
+  }
+
+  /* Fast, clearly-visible light wash ("aurora") for section backgrounds -
+     big, saturated blobs in the sky/clay/sand palette that swing around
+     independently. Turned up on purpose: this is the one bold, colorful
+     moment on whatever section it sits behind. */
+  .aurora-field {
+    position: absolute;
+    inset: -20%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(45px);
+    will-change: transform, opacity;
+  }
+  .aurora-blob-sky {
+    width: 32rem;
+    height: 32rem;
+    top: -6rem;
+    right: 2%;
+    background: radial-gradient(circle, rgba(111, 163, 199, 0.75), transparent 68%);
+    animation: aurora-drift-1 11s ease-in-out infinite alternate;
+  }
+  .aurora-blob-clay {
+    width: 28rem;
+    height: 28rem;
+    bottom: -8rem;
+    left: 0%;
+    background: radial-gradient(circle, rgba(189, 126, 86, 0.65), transparent 68%);
+    animation: aurora-drift-2 14s ease-in-out infinite alternate;
+  }
+  .aurora-blob-sand {
+    width: 24rem;
+    height: 24rem;
+    top: 25%;
+    left: 35%;
+    background: radial-gradient(circle, rgba(217, 198, 163, 0.7), transparent 68%);
+    animation: aurora-drift-3 9s ease-in-out infinite alternate;
+  }
+  .aurora-blob-sage {
+    width: 20rem;
+    height: 20rem;
+    bottom: 10%;
+    right: 20%;
+    background: radial-gradient(circle, rgba(150, 161, 132, 0.6), transparent 68%);
+    animation: aurora-drift-4 16s ease-in-out infinite alternate;
+  }
+  @keyframes aurora-drift-1 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+    50% { opacity: 1; }
+    100% { transform: translate(-18%, 22%) scale(1.3); opacity: 0.7; }
+  }
+  @keyframes aurora-drift-2 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { transform: translate(22%, -18%) scale(1.22); opacity: 0.65; }
+  }
+  @keyframes aurora-drift-3 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+    50% { opacity: 0.6; }
+    100% { transform: translate(-26%, -20%) scale(0.75); opacity: 0.9; }
+  }
+  @keyframes aurora-drift-4 {
+    0% { transform: translate(0, 0) scale(0.9); opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { transform: translate(16%, 20%) scale(1.25); opacity: 0.55; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-blob {
+      animation: none !important;
+    }
+  }
+}
