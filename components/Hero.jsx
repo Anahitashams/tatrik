@@ -37,7 +37,7 @@ export default function Hero() {
             </div>
 
             <h1 className="mt-5 max-w-xl font-display text-4xl font-bold text- leading-[1.45] text-[#52606A] md:text-5xl">
-              ظرف‌هایی که با دست شکل گرفته‌اند،
+              بوبو که با دست شکل گرفته‌اند،
               <br /> برای میزی که هر روز دورش می‌نشینید.
             </h1>
 
