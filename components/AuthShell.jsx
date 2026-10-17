@@ -23,7 +23,7 @@ export default function AuthShell({ note, children }) {
           </p>
         </div>
 
-        <div className="p-8 sm:p-12 md:p-16">{children}</div>
+        <div className="p-6 sm:p-10 md:p-16">{children}</div>
       </div>
     </section>
   );

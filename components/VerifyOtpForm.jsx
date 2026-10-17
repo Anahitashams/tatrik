@@ -203,7 +203,7 @@ export default function VerifyOtpForm() {
       )}
 
       <form onSubmit={handleVerify} className="mt-10 space-y-7">
-        <div className="flex justify-center gap-2.5 sm:gap-3" dir="ltr" onPaste={handlePaste}>
+        <div className="flex justify-center gap-1.5 sm:gap-3" dir="ltr" onPaste={handlePaste}>
           {digits.map((digit, index) => (
             <input
               key={index}
@@ -214,7 +214,7 @@ export default function VerifyOtpForm() {
               value={digit}
               onChange={(event) => handleDigitChange(index, event.target.value)}
               onKeyDown={(event) => handleKeyDown(index, event)}
-              className={`otp-digit h-16 w-12 rounded-2xl border border-ink/15 bg-cream text-center font-display text-2xl text-ink sm:h-20 sm:w-14 ${
+              className={`otp-digit h-12 w-9 rounded-xl border border-ink/15 bg-cream text-center font-display text-lg text-ink sm:h-16 sm:w-12 sm:rounded-2xl sm:text-2xl md:h-20 md:w-14 ${
                 digit ? "is-filled" : ""
               }`}
             />
