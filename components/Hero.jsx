@@ -27,7 +27,9 @@ export default function Hero() {
       <div className="mx-auto flex min-h-[620px] max-w-6xl items-center px-5 pb-16 pt-28 sm:px-6 sm:pt-32 md:min-h-[720px] md:px-10 md:py-28 md:pt-36">
         <div className="grid w-full items-center gap-10 md:grid-cols-2 md:gap-16">
           {/* ================= TEXT ================= */}
-          <div className="animate-rise text-center md:-mt-8 md:text-right">
+          {/* On mobile this comes second (order-2) - the product cards
+              are shown first so you see the pottery before the copy. */}
+          <div className="order-2 animate-rise text-center md:order-none md:-mt-8 md:text-right">
             <div className="flex items-center justify-center gap-4 md:justify-start">
               <p className="text-sm font-medium text-[#BD7E56]">
                 کارگاه سفالگری خاک
@@ -53,7 +55,9 @@ export default function Hero() {
           </div>
 
           {/* ================= PRODUCT CARDS ================= */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:-mt-8 md:gap-5">
+          {/* Shown first on mobile (order-1) and shrunk down to a centered,
+              phone-sized block instead of stretching full-width. */}
+          <div className="order-1 mx-auto grid w-full max-w-[280px] grid-cols-2 gap-3 sm:max-w-sm sm:gap-4 md:order-none md:mx-0 md:-mt-8 md:max-w-none md:gap-5">
             {/* Large card */}
             <ProductVisual
               icon="mug"

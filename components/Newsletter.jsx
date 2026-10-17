@@ -65,9 +65,13 @@ export default function Newsletter() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="shrink-0 rounded-full bg-cream px-6 py-3 text-sm text-ink transition-colors hover:bg-clay-light disabled:opacity-60"
+                className="group relative shrink-0 overflow-hidden rounded-full bg-cream px-6 py-3 text-sm text-ink shadow-[0_0_0_0_rgba(189,126,86,0)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-8px_rgba(189,126,86,0.55)] disabled:translate-y-0 disabled:opacity-60 disabled:shadow-none"
               >
-                {status === "loading" ? "در حال ارسال..." : "عضویت"}
+                <span className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-clay-light via-sky-light to-sand opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+                <span className="relative z-10">
+                  {status === "loading" ? "در حال ارسال..." : "عضویت"}
+                </span>
+                <span className="pointer-events-none absolute inset-y-0 right-0 z-0 w-1/3 -skew-x-12 bg-white/40 opacity-0 transition-opacity duration-200 group-hover:animate-shine group-hover:opacity-100" />
               </button>
             </div>
 

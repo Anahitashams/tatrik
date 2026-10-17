@@ -75,6 +75,24 @@ export default function Navbar() {
     setIsOpen(false);
   }
 
+  // The fixed header sits on top of the page, so jumping straight to a
+  // section's native anchor position tucks its top edge under the navbar.
+  // Scrolling to it manually (minus the header's height) with "smooth"
+  // behavior also feels far less abrupt than the instant native jump the
+  // mobile menu's overlay-close + hash-nav combo used to produce.
+  function handleAnchorClick(event, href) {
+    setIsOpen(false);
+    if (!href.startsWith("#")) return; // real page link - let Link navigate normally
+    const id = href.slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+    event.preventDefault();
+    const headerOffset = 100;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: "smooth" });
+    window.history.replaceState(null, "", href);
+  }
+
   return (
     <>
       {/* ================= DESKTOP NAVBAR ================= */}
@@ -106,7 +124,11 @@ export default function Navbar() {
                 <Link
                   key={item.title}
                   href={item.href}
-                  onClick={item.href === "/" ? handleHomeClick : undefined}
+                  onClick={
+                    item.href === "/"
+                      ? handleHomeClick
+                      : (event) => handleAnchorClick(event, item.href)
+                  }
                   className="group relative rounded-full px-4 py-2.5 text-[13px] text-[#52606A]/80 transition-all duration-300 hover:bg-white/50 hover:text-[#52606A]"
                 >
                   {item.title}
@@ -191,9 +213,19 @@ export default function Navbar() {
       </header>
 
       {/* ================= MOBILE MENU ================= */}
-      {isOpen && (
-        <div className="fixed inset-0 z-[100] bg-[#F2ECE1]">
-          {/* Decorative shapes */}
+      {/* Kept mounted at all times and faded/slid in or out with a
+          transition instead of being added/removed from the DOM outright -
+          an instant mount/unmount made the menu feel like it was cutting
+          to the section below rather than closing. */}
+      <div
+        className={`fixed inset-0 z-[100] bg-[#F2ECE1] transition-all duration-300 ease-out ${
+          isOpen
+            ? "visible translate-y-0 opacity-100"
+            : "invisible pointer-events-none -translate-y-3 opacity-0"
+        }`}
+        aria-hidden={!isOpen}
+      >
+        {/* Decorative shapes */}
           <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#A7B7C3]/20 blur-3xl" />
 
           <div className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[#BD7E56]/10 blur-3xl" />
@@ -223,7 +255,11 @@ export default function Navbar() {
               <Link
                 key={item.title}
                 href={item.href}
-                onClick={item.href === "/" ? handleHomeClick : () => setIsOpen(false)}
+                onClick={
+                  item.href === "/"
+                    ? handleHomeClick
+                    : (event) => handleAnchorClick(event, item.href)
+                }
                 className="group flex items-center justify-between border-b border-[#52606A]/10 py-5"
               >
                 <div className="flex items-center gap-4">
@@ -281,8 +317,7 @@ export default function Navbar() {
             <span>HANDMADE CERAMICS</span>
             <span>© TATRIK</span>
           </div>
-        </div>
-      )}
+      </div>
     </>
   );
 }
