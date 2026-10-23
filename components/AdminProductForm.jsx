@@ -65,6 +65,8 @@ export default function AdminProductForm({ initialProduct, onSubmit, onCancel })
           <label className="mb-1.5 block text-sm text-ink-soft">نام محصول</label>
           <input
             required
+            minLength={2}
+            maxLength={80}
             value={form.name}
             onChange={(event) => update("name", event.target.value)}
             className={inputClass}
@@ -90,6 +92,8 @@ export default function AdminProductForm({ initialProduct, onSubmit, onCancel })
             required
             type="number"
             min="0"
+            max="999999999"
+            step="1000"
             value={form.price}
             onChange={(event) => update("price", event.target.value)}
             className={inputClass}
@@ -101,6 +105,7 @@ export default function AdminProductForm({ initialProduct, onSubmit, onCancel })
             required
             type="number"
             min="0"
+            max="100000"
             value={form.stock}
             onChange={(event) => update("stock", event.target.value)}
             className={inputClass}

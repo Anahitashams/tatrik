@@ -24,11 +24,19 @@ const columns = [
   {
     title: "پشتیبانی",
     links: [
-      { label: "ارسال و تحویل", href: "#" },
-      { label: "بازگشت کالا", href: "#" },
-      { label: "سوالات متداول", href: "#" },
+      { label: "ارسال و تحویل", href: "/shipping" },
+      { label: "بازگشت کالا", href: "/returns" },
+      { label: "سوالات متداول", href: "/faq" },
     ],
   },
+];
+
+const SOCIAL_USERNAME = "tatrik_artsy";
+const socials = [
+  { key: "instagram", label: "اینستاگرام", href: `https://instagram.com/${SOCIAL_USERNAME}` },
+  { key: "telegram", label: "تلگرام", href: `https://t.me/${SOCIAL_USERNAME}` },
+  { key: "bale", label: "بله", href: `https://ble.ir/${SOCIAL_USERNAME}` },
+  { key: "rubika", label: "روبیکا", href: `https://rubika.ir/${SOCIAL_USERNAME}` },
 ];
 
 function Diamond() {
@@ -76,6 +84,57 @@ function TelegramIcon() {
   );
 }
 
+function BaleIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+    >
+      <path
+        d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7A2.5 2.5 0 0 1 17.5 16H10l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function RubikaIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+    >
+      <path
+        d="M12 3.5 20 8v8l-8 4.5L4 16V8z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+const socialIcons = {
+  instagram: InstagramIcon,
+  telegram: TelegramIcon,
+  bale: BaleIcon,
+  rubika: RubikaIcon,
+};
+
+const socialColors = {
+  instagram: "bg-[#D9C6A3] text-[#52606A]",
+  telegram: "bg-[#A7B7C3] text-[#52606A]",
+  bale: "bg-[#96A184] text-white",
+  rubika: "bg-sky text-white",
+};
+
 function PotIcon() {
   return (
     <svg
@@ -97,12 +156,14 @@ function PotIcon() {
   );
 }
 
-function SocialCircle({ children, label, className }) {
+function SocialCircle({ children, label, href, className }) {
   return (
     <a
-      href="#"
+      href={href || "#"}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
-      className={`flex h-16 w-16 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1 hover:scale-105 ${className}`}
+      className={`flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1 hover:scale-105 sm:h-14 sm:w-14 md:h-16 md:w-16 ${className}`}
     >
       {children}
     </a>
@@ -250,8 +311,10 @@ export default function Footer() {
     mx-auto
     max-w-7xl
     px-6
-    pb-10
-    pt-10
+    pb-7
+    pt-7
+    sm:pb-9
+    sm:pt-9
     md:px-10
     md:pb-14
     md:pt-14
@@ -262,7 +325,8 @@ export default function Footer() {
           className="
             grid
             items-center
-            gap-10
+            gap-6
+            sm:gap-8
             md:grid-cols-[1.25fr_0.8fr_0.8fr_0.85fr_1.35fr]
             md:gap-6
           "
@@ -287,12 +351,13 @@ export default function Footer() {
                 className="
                   block
                   font-display
-                  text-[62px]
+                  text-[42px]
                   leading-none
                   text-[#BD7E56]
                   transition-transform
                   duration-300
                   group-hover:-translate-y-1
+                  sm:text-[52px]
                   md:text-[72px]
                 "
               >
@@ -302,7 +367,7 @@ export default function Footer() {
               <span
                 className="
                   mx-auto
-                  mt-7
+                  mt-4
                   block
                   h-[2px]
                   w-20
@@ -310,18 +375,25 @@ export default function Footer() {
                   transition-all
                   duration-300
                   group-hover:w-24
+                  sm:mt-5
+                  md:mt-7
                 "
               />
             </Link>
 
             <p
               className="
-                mt-8
+                mt-5
                 max-w-[270px]
                 text-center
-                text-[16px]
-                leading-8
+                text-[14px]
+                leading-7
                 text-[#52606A]/75
+                sm:mt-6
+                sm:text-[15px]
+                md:mt-8
+                md:text-[16px]
+                md:leading-8
               "
             >
               کارگاه کوچک سفالگری در دل شهر؛
@@ -334,47 +406,30 @@ export default function Footer() {
             <div
               dir="ltr"
               className="
-                mt-9
+                mt-6
                 flex
                 items-center
                 justify-center
-                gap-5
+                gap-3
+                sm:mt-7
+                sm:gap-4
+                md:mt-9
+                md:gap-5
               "
             >
-              <SocialCircle
-                label="اینستاگرام"
-                className="bg-[#D9C6A3] text-[#52606A]"
-              >
-                <InstagramIcon />
-              </SocialCircle>
-
-              <SocialCircle
-                label="تلگرام"
-                className="bg-[#A7B7C3] text-[#52606A]"
-              >
-                <TelegramIcon />
-              </SocialCircle>
-
-              <SocialCircle
-                label="شبکه اجتماعی خاک"
-                className="bg-[#96A184] text-white"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    d="M12 21c0-6-4-8-4-13a4 4 0 0 1 8 0c0 5-4 7-4 13Z"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-
-                  <path d="M12 21v-7" strokeLinecap="round" />
-                </svg>
-              </SocialCircle>
+              {socials.map((social) => {
+                const Icon = socialIcons[social.key];
+                return (
+                  <SocialCircle
+                    key={social.key}
+                    label={social.label}
+                    href={social.href}
+                    className={socialColors[social.key]}
+                  >
+                    <Icon />
+                  </SocialCircle>
+                );
+              })}
             </div>
           </div>
 
@@ -401,15 +456,21 @@ export default function Footer() {
               <h3
                 className="
                   flex
-                  h-[35px]
+                  h-[28px]
                   items-center
                   justify-center
                   whitespace-nowrap
                   font-display
-                  text-[23px]
+                  text-[19px]
                   font-medium
-                  leading-[35px]
+                  leading-[28px]
                   text-[#BD7E56]
+                  sm:h-[31px]
+                  sm:text-[21px]
+                  sm:leading-[31px]
+                  md:h-[35px]
+                  md:text-[23px]
+                  md:leading-[35px]
                 "
               >
                 {column.title}
@@ -420,12 +481,14 @@ export default function Footer() {
               <span
                 className="
                   mx-auto
-                  mt-5
+                  mt-3
                   block
                   h-px
                   w-28
                   shrink-0
                   bg-[#BD7E56]/40
+                  sm:mt-4
+                  md:mt-5
                 "
               />
 
@@ -433,11 +496,15 @@ export default function Footer() {
 
               <ul
                 className="
-                  mt-8
+                  mt-5
                   flex
                   flex-col
                   items-center
-                  space-y-6
+                  space-y-4
+                  sm:mt-6
+                  sm:space-y-5
+                  md:mt-8
+                  md:space-y-6
                 "
               >
                 {column.links.map((link) => (
@@ -517,6 +584,16 @@ export default function Footer() {
                 items-center
                 justify-center
               "
+              style={{
+                // Fades the scene's edges into the footer background
+                // instead of ending in a hard rectangle, so it reads as
+                // emerging from the backdrop rather than sitting on top
+                // of it.
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 80% 75% at 50% 50%, #000 58%, transparent 100%)",
+                maskImage:
+                  "radial-gradient(ellipse 80% 75% at 50% 50%, #000 58%, transparent 100%)",
+              }}
             >
               <FooterScene className="h-[390px] w-full" />
             </div>
@@ -588,13 +665,16 @@ export default function Footer() {
             max-w-7xl
             flex-col-reverse
             items-center
-            gap-6
+            gap-4
             px-6
-            py-7
+            py-5
+            sm:gap-5
+            sm:py-6
             md:flex-row
             md:items-center
             md:justify-between
             md:px-10
+            md:py-7
           "
         >
           {/* =================================================
@@ -614,8 +694,8 @@ export default function Footer() {
             <span
               className="
                 flex
-                h-[72px]
-                w-[72px]
+                h-12
+                w-12
                 shrink-0
                 items-center
                 justify-center
@@ -623,6 +703,10 @@ export default function Footer() {
                 border
                 border-[#D9C6A3]
                 text-[#D9C6A3]
+                sm:h-16
+                sm:w-16
+                md:h-[72px]
+                md:w-[72px]
               "
             >
               <PotIcon />
@@ -647,7 +731,9 @@ export default function Footer() {
             "
           >
             <a
-              href="#"
+              href={`https://instagram.com/${SOCIAL_USERNAME}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="
                 flex
                 items-center
@@ -672,7 +758,9 @@ export default function Footer() {
             <span className="text-[#D9C6A3]">•</span>
 
             <a
-              href="#"
+              href={`https://t.me/${SOCIAL_USERNAME}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="
                 flex
                 items-center

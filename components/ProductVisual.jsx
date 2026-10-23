@@ -144,8 +144,16 @@ export default function ProductVisual({ icon, tone = "dust", image, className = 
       className={`relative flex items-center justify-center overflow-hidden bg-gradient-to-b ${toneGradients[tone]} ${className}`}
     >
       {image ? (
+        // On small screens the box's aspect ratio can crop a real photo
+        // too tightly ("object-cover" zooms in to fill it); showing the
+        // whole photo uncropped ("object-contain") reads much better on
+        // a phone, while desktop keeps the tighter, more polished crop.
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={image} alt="" className="h-full w-full object-cover" />
+        <img
+          src={image}
+          alt=""
+          className="h-full w-full object-contain p-3 sm:p-2 md:object-cover md:p-0"
+        />
       ) : (
         <>
           <div className="absolute inset-x-6 bottom-6 h-px bg-ink-soft/20" />

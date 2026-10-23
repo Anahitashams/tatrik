@@ -1,4 +1,3 @@
-import Image from "next/image";
 import ProductVisual from "./ProductVisual";
 import HeroActions from "./HeroActions";
 
@@ -7,13 +6,18 @@ export default function Hero() {
     <section id="home" className="relative min-h-[620px] overflow-hidden sm:min-h-[660px] md:min-h-[720px]">
       {/* ================= BACKGROUND ================= */}
       <div className="absolute inset-0 -z-10">
-        <Image
+        {/* A plain <img> instead of next/image: this was the app's only
+            Image usage, and unmounting a fill+priority next/image mid-load
+            (e.g. navigating away quickly by clicking the cart icon) is a
+            known trigger for React's "Failed to execute removeChild"
+            crash in this Next.js version. A plain tag sidesteps that
+            lifecycle entirely for a static local asset that doesn't need
+            next/image's optimization pipeline. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src="/images/background.png"
           alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[65%_center] md:object-center"
+          className="absolute inset-0 h-full w-full object-cover object-[65%_center] md:object-center"
         />
 
         <div className="absolute inset-0 bg-[#F2ECE1]/20" />
@@ -25,11 +29,16 @@ export default function Hero() {
 
       {/* ================= CONTENT ================= */}
       <div className="mx-auto flex min-h-[620px] max-w-6xl items-center px-5 pb-16 pt-28 sm:px-6 sm:pt-32 md:min-h-[720px] md:px-10 md:py-28 md:pt-36">
-        <div className="grid w-full items-center gap-10 md:grid-cols-2 md:gap-16">
-          {/* ================= TEXT ================= */}
-          {/* On mobile this comes second (order-2) - the product cards
-              are shown first so you see the pottery before the copy. */}
-          <div className="order-2 animate-rise text-center md:order-none md:-mt-8 md:text-right">
+        {/* A named-areas grid instead of plain column order: on mobile the
+            copy comes first, then the product photos, then the buttons
+            (three separate stacked blocks); on desktop the copy+buttons
+            sit together in one column beside the photos, like before. CSS
+            "order" alone can't express that - it only reshuffles items
+            along one axis, it can't regroup copy+buttons back into the
+            same column once images sits between them on mobile. */}
+        <div className="hero-grid grid w-full items-center gap-10 md:gap-x-16 md:gap-y-9">
+          {/* ================= COPY ================= */}
+          <div className="hero-copy animate-rise text-center md:text-right">
             <div className="flex items-center justify-center gap-4 md:justify-start">
               <p className="text-sm font-medium text-[#BD7E56]">
                 کارگاه سفالگری خاک
@@ -48,16 +57,12 @@ export default function Hero() {
               رنگ‌ها از آسمان صبح و خاک نمناک الهام گرفته‌اند؛ بی‌قاعده، گرم و
               ماندگار.
             </p>
-
-            <div className="flex justify-center md:justify-start">
-              <HeroActions />
-            </div>
           </div>
 
           {/* ================= PRODUCT CARDS ================= */}
-          {/* Shown first on mobile (order-1) and shrunk down to a centered,
-              phone-sized block instead of stretching full-width. */}
-          <div className="order-1 mx-auto grid w-full max-w-[280px] grid-cols-2 gap-3 sm:max-w-sm sm:gap-4 md:order-none md:mx-0 md:-mt-8 md:max-w-none md:gap-5">
+          {/* Shrunk down to a centered, phone-sized block on mobile
+              instead of stretching full-width. */}
+          <div className="hero-images mx-auto grid w-full max-w-[280px] grid-cols-2 gap-3 sm:max-w-sm sm:gap-4 md:mx-0 md:max-w-none md:gap-5">
             {/* Large card */}
             <ProductVisual
               icon="mug"
@@ -79,11 +84,37 @@ export default function Hero() {
               className="aspect-square rounded-[14px]"
             />
           </div>
+
+          {/* ================= ACTIONS ================= */}
+          <div className="hero-actions flex justify-center md:justify-start">
+            <HeroActions />
+          </div>
         </div>
       </div>
 
       {/* خیلی ظریف برای اتصال Hero به بخش بعدی */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#F2ECE1]/30 to-transparent" />
+
+      <style jsx>{`
+        .hero-grid {
+          grid-template-areas: "copy" "images" "actions";
+        }
+        .hero-copy {
+          grid-area: copy;
+        }
+        .hero-images {
+          grid-area: images;
+        }
+        .hero-actions {
+          grid-area: actions;
+        }
+        @media (min-width: 768px) {
+          .hero-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-areas: "copy images" "actions images";
+          }
+        }
+      `}</style>
     </section>
   );
 }

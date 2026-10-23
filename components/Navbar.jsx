@@ -15,7 +15,7 @@ const navItems = [
   { title: "تماس با ما", href: "#contact" },
 ];
 
-function isItemActive(pathname, href) {
+function isItemActive(pathname, hash, href) {
   // A hash-only link (e.g. "#contact") points at a section of whatever
   // page you're on, not at a page of its own, so it's never "active" -
   // without this check, splitting "#contact" on "#" yields an empty
@@ -23,9 +23,15 @@ function isItemActive(pathname, href) {
   // underline on the homepage by mistake.
   if (href.startsWith("#")) return false;
 
-  const basePath = href.split("#")[0];
-  if (basePath === "/") return pathname === "/";
-  return pathname === basePath || pathname.startsWith(`${basePath}/`);
+  const [basePath, itemHash] = href.split("#");
+  const pathMatches =
+    basePath === "/" ? pathname === "/" : pathname === basePath || pathname.startsWith(`${basePath}/`);
+  if (!pathMatches) return false;
+
+  // "درباره ما" (/about) and "فرآیند ساخت" (/about#story) share a path,
+  // so the path alone can't tell them apart - whichever one's hash (or
+  // lack of one) matches the current URL is the one that lights up.
+  return itemHash ? hash === `#${itemHash}` : !hash;
 }
 
 export default function Navbar() {
@@ -37,6 +43,7 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const searchRef = useRef(null);
+  const [hash, setHash] = useState("");
 
   // Close the mobile menu and the search dropdown whenever the route
   // changes (link click, browser back/forward, etc.) so nothing is left
@@ -44,6 +51,18 @@ export default function Navbar() {
   useEffect(() => {
     setIsOpen(false);
     setSearchOpen(false);
+  }, [pathname]);
+
+  // Track the URL hash too (pathname alone doesn't include it) so e.g.
+  // "درباره ما" and "فرآیند ساخت" - which both live under /about - can
+  // tell which one of them the current URL is actually pointing at.
+  useEffect(() => {
+    setHash(window.location.hash);
+    function handleHashChange() {
+      setHash(window.location.hash);
+    }
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
   }, [pathname]);
 
   // Close the search dropdown on outside click.
@@ -91,6 +110,7 @@ export default function Navbar() {
     const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
     window.scrollTo({ top, behavior: "smooth" });
     window.history.replaceState(null, "", href);
+    setHash(href);
   }
 
   return (
@@ -119,7 +139,7 @@ export default function Navbar() {
           {/* MENU */}
           <nav className="hidden items-center gap-1 lg:flex">
             {navItems.map((item) => {
-              const active = isItemActive(pathname, item.href);
+              const active = isItemActive(pathname, hash, item.href);
               return (
                 <Link
                   key={item.title}
@@ -164,6 +184,7 @@ export default function Navbar() {
                   <input
                     type="search"
                     autoFocus
+                    maxLength={60}
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                     placeholder="جستجوی محصول..."

@@ -72,6 +72,7 @@ export default function ProductsBrowser() {
           <span className="sr-only">جستجوی محصول</span>
           <input
             type="search"
+            maxLength={60}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="جستجو در محصولات..."

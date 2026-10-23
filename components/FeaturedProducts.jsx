@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import ProductVisual from "./ProductVisual";
+import Reveal from "./Reveal";
+import SectionGlimmer from "./SectionGlimmer";
 import { formatPrice } from "@/lib/products";
 import { useProducts } from "@/lib/product-store";
 
@@ -39,8 +41,9 @@ export default function FeaturedProducts() {
       id="products"
       className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24"
     >
-      <div className="mb-10 flex items-end justify-between gap-4">
+      <Reveal className="mb-10 flex items-end justify-between gap-4">
         <div>
+          <SectionGlimmer className="mb-3" tone="sky" />
           <h2 className="font-display text-3xl text-ink md:text-4xl">
             منتخب کارگاه
           </h2>
@@ -49,15 +52,12 @@ export default function FeaturedProducts() {
             دارد.
           </p>
         </div>
-        <Link
-          href="/products"
-          className="hidden shrink-0 text-sm text-ink-soft hover:text-ink md:block"
-        >
+        <Link href="/products" className="btn-blossom hidden shrink-0 md:inline-flex">
           مشاهده همه محصولات
         </Link>
-      </div>
+      </Reveal>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-6 md:gap-5">
+      <Reveal delay={0.1} className="grid grid-cols-2 gap-4 md:grid-cols-6 md:gap-5">
         {displayItems.map(({ product, span }) => (
           <Link
             key={product.slug}
@@ -81,7 +81,7 @@ export default function FeaturedProducts() {
             </div>
           </Link>
         ))}
-      </div>
+      </Reveal>
     </section>
   );
 }

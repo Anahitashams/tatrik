@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import Navbar from "@/components/Navbar";
 import ProductsBrowser from "@/components/ProductsBrowser";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
@@ -12,7 +11,6 @@ export const metadata = {
 export default function ProductsPage() {
   return (
     <main>
-      <Navbar />
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-32">
         <div className="mb-10 max-w-md">
           <p className="text-sm tracking-wide text-clay-dark">فروشگاه</p>

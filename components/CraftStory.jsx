@@ -1,4 +1,6 @@
 import AuroraGlow from "./AuroraGlow";
+import Reveal from "./Reveal";
+import SectionGlimmer from "./SectionGlimmer";
 
 const steps = [
   {
@@ -30,25 +32,27 @@ export default function CraftStory() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24">
         <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-          <div>
+          <Reveal>
+            <SectionGlimmer className="mb-3" tone="sky" />
             <h2 className="font-display text-3xl text-ink md:text-4xl">از خاک تا سفال</h2>
             <p className="mt-4 text-ink-soft">
               چهار مرحله، سه هفته، و دست‌هایی که هر روز همان کار را کمی متفاوت انجام می‌دهند.
             </p>
-          </div>
+          </Reveal>
 
           <ol className="grid gap-8 sm:grid-cols-2">
-            {steps.map((step) => (
-              <li
-                key={step.n}
-                className="flex gap-4 rounded-2xl bg-paper/60 p-3 backdrop-blur-sm sm:bg-transparent sm:p-0 sm:backdrop-blur-none"
-              >
-                <span className="font-display text-2xl text-clay-dark">{step.n}</span>
+            {steps.map((step, index) => (
+              <Reveal as="li" key={step.n} delay={0.08 * index} className="flex gap-4 rounded-2xl bg-paper/60 p-3 backdrop-blur-sm sm:bg-transparent sm:p-0 sm:backdrop-blur-none">
+                <span
+                  className={`font-display text-2xl ${index % 2 === 0 ? "text-clay-dark" : "text-sky-dark"}`}
+                >
+                  {step.n}
+                </span>
                 <div>
                   <h3 className="text-ink">{step.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-ink-soft">{step.text}</p>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ol>
         </div>

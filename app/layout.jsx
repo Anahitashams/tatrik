@@ -2,6 +2,7 @@ import { Vazirmatn, Mirza } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
+import Navbar from "@/components/Navbar";
 
 const bodyFont = Vazirmatn({
   subsets: ["arabic", "latin"],
@@ -35,7 +36,10 @@ export default function RootLayout({ children }) {
     >
       <body className="font-body antialiased">
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            <Navbar />
+            {children}
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

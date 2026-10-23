@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthShell from "@/components/AuthShell";
 import { useAuth } from "@/lib/auth-context";
 import { writeOtpHint } from "@/lib/otp-hint";
+import { sanitizePhoneInput } from "@/lib/phone";
 
 const inputClass =
   "w-full rounded-2xl border border-ink/15 bg-cream px-5 py-4 text-base text-ink placeholder:text-ink-soft/50 transition-colors focus:border-sky-dark focus:outline-none focus:ring-4 focus:ring-sky/15";
@@ -44,7 +44,6 @@ export default function LoginPage() {
 
   return (
     <main>
-      <Navbar />
       <AuthShell>
         <span className="inline-flex items-center gap-2 rounded-full bg-sky/10 px-4 py-1.5 text-xs text-sky-dark">
           <span className="h-1.5 w-1.5 rounded-full bg-sky-dark" />
@@ -67,8 +66,13 @@ export default function LoginPage() {
               dir="ltr"
               required
               autoFocus
+              inputMode="numeric"
+              pattern="09[0-9]{9}"
+              maxLength={11}
+              minLength={11}
+              title="شماره موبایل باید ۱۱ رقم باشد و با 09 شروع شود"
               value={phone}
-              onChange={(event) => setPhone(event.target.value)}
+              onChange={(event) => setPhone(sanitizePhoneInput(event.target.value))}
               className={`${inputClass} text-center tracking-widest`}
               placeholder="09123456789"
             />

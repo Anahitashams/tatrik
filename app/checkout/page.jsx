@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductVisual from "@/components/ProductVisual";
 import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/cart-context";
+import { sanitizePhoneInput } from "@/lib/phone";
 
 const inputClass =
   "w-full rounded-soft border border-ink/15 bg-cream px-4 py-2.5 text-sm text-ink placeholder:text-ink-soft/50 focus:border-clay-dark";
@@ -37,7 +37,6 @@ export default function CheckoutPage() {
 
   return (
     <main>
-      <Navbar />
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-32">
         <h1 className="font-display text-3xl text-ink md:text-4xl">اطلاعات ارسال</h1>
         <p className="mt-3 max-w-lg text-ink-soft">
@@ -50,6 +49,8 @@ export default function CheckoutPage() {
               <label className="mb-1.5 block text-sm text-ink-soft">نام و نام خانوادگی</label>
               <input
                 required
+                minLength={2}
+                maxLength={60}
                 value={form.fullName}
                 onChange={(event) => setForm((f) => ({ ...f, fullName: event.target.value }))}
                 placeholder="مثلاً سارا مرادی"
@@ -59,10 +60,19 @@ export default function CheckoutPage() {
             <div>
               <label className="mb-1.5 block text-sm text-ink-soft">شماره تماس</label>
               <input
+                type="tel"
+                dir="ltr"
                 required
+                inputMode="numeric"
+                pattern="09[0-9]{9}"
+                maxLength={11}
+                minLength={11}
+                title="شماره موبایل باید ۱۱ رقم باشد و با 09 شروع شود"
                 value={form.phone}
-                onChange={(event) => setForm((f) => ({ ...f, phone: event.target.value }))}
-                placeholder="۰۹۱۲۱۲۳۴۵۶۷"
+                onChange={(event) =>
+                  setForm((f) => ({ ...f, phone: sanitizePhoneInput(event.target.value) }))
+                }
+                placeholder="09121234567"
                 className={inputClass}
               />
             </div>
@@ -71,6 +81,8 @@ export default function CheckoutPage() {
               <textarea
                 required
                 rows={3}
+                minLength={10}
+                maxLength={300}
                 value={form.address}
                 onChange={(event) => setForm((f) => ({ ...f, address: event.target.value }))}
                 placeholder="شهر، خیابان، پلاک، واحد"

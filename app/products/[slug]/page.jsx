@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import ProductVisual from "@/components/ProductVisual";
 import AddToCartButton from "@/components/AddToCartButton";
 import Footer from "@/components/Footer";
@@ -20,7 +19,6 @@ export default function ProductDetailPage() {
   if (hydrated && !product) {
     return (
       <main>
-        <Navbar />
         <section className="mx-auto max-w-3xl px-6 pb-16 pt-28 text-center md:pb-24 md:pt-32">
           <p className="text-ink-soft">این محصول پیدا نشد؛ شاید حذف شده باشد.</p>
           <Link
@@ -47,8 +45,6 @@ export default function ProductDetailPage() {
 
   return (
     <main>
-      <Navbar />
-
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-32">
         <nav className="mb-8 text-sm text-ink-soft">
           <Link href="/products" className="hover:text-ink">

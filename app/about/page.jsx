@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import AboutHero from "@/components/AboutHero";
 import FounderNote from "@/components/FounderNote";
 import Values from "@/components/Values";
@@ -15,7 +14,6 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main>
-      <Navbar />
       <AboutHero />
       <FounderNote />
       <Values />

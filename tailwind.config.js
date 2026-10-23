@@ -16,10 +16,13 @@ const config = {
           light: "#CBD7DE",
           dark: "#7C93A2",
         },
+        // Lightened/desaturated a notch from the original #BD7E56 family -
+        // same warm clay identity, just a little softer so it doesn't
+        // compete as hard with the blue and pink accents.
         clay: {
-          DEFAULT: "#BD7E56",
-          light: "#D9AE85",
-          dark: "#93613D",
+          DEFAULT: "#C79169",
+          light: "#E2C19C",
+          dark: "#A2714B",
         },
         sand: "#D9C6A3",
         sage: "#96A184",
@@ -30,6 +33,13 @@ const config = {
           DEFAULT: "#6FA3C7",
           light: "#A9CBE0",
           dark: "#3F7699",
+        },
+        // A gentle, muted pink - used sparingly as a second colorful accent
+        // alongside sky, never as a dominant color.
+        blossom: {
+          DEFAULT: "#E3AFBC",
+          light: "#F1D2D9",
+          dark: "#C98298",
         },
       },
       fontFamily: {

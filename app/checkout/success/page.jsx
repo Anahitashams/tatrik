@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/cart-context";
@@ -12,7 +11,6 @@ export default function CheckoutSuccessPage() {
 
   return (
     <main>
-      <Navbar />
       <section className="mx-auto max-w-2xl px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-32">
         {order ? (
           <div className="rounded-soft border border-ink/10 bg-paper px-8 py-14 text-center">

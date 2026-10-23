@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import ProductVisual from "./ProductVisual";
 
 const categories = [
-  { label: "ماگ", icon: "mug", tone: "dust", accent: "#7C93A2" },
+  { label: "ماگ", icon: "mug", tone: "dust", accent: "#6FA3C7" },
   { label: "کاسه", icon: "bowl", tone: "sage", accent: "#96A184" },
-  { label: "بشقاب", icon: "plate", tone: "sand", accent: "#BD7E56" },
-  { label: "گلدان", icon: "vase", tone: "clay", accent: "#93613D" },
-  { label: "شمعدان", icon: "candle", tone: "dust", accent: "#6FA3C7" },
+  { label: "بشقاب", icon: "plate", tone: "sand", accent: "#C79169" },
+  { label: "گلدان", icon: "vase", tone: "clay", accent: "#3F7699" },
+  { label: "شمعدان", icon: "candle", tone: "dust", accent: "#A2714B" },
 ];
 
 export default function CategoryStrip() {

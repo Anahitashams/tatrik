@@ -17,20 +17,28 @@ const values = [
   },
 ];
 
+import Reveal from "./Reveal";
+import SectionGlimmer from "./SectionGlimmer";
+
 export default function Values() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24">
-      <h2 className="font-display text-3xl text-ink md:text-4xl">آنچه برایمان مهم است</h2>
+      <Reveal>
+        <SectionGlimmer className="mb-3" tone="clay" />
+        <h2 className="font-display text-3xl text-ink md:text-4xl">آنچه برایمان مهم است</h2>
+      </Reveal>
 
       <div className="mt-10 divide-y divide-ink/10 border-t border-ink/10">
-        {values.map((value) => (
-          <div
+        {values.map((value, index) => (
+          <Reveal
+            as="div"
             key={value.title}
+            delay={0.06 * index}
             className="grid gap-2 py-7 md:grid-cols-[1fr_2fr] md:items-baseline md:gap-8"
           >
             <h3 className="text-lg text-ink">{value.title}</h3>
             <p className="text-ink-soft leading-7">{value.text}</p>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

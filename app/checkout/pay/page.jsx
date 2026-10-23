@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { formatPrice } from "@/lib/products";
 import { useCart } from "@/lib/cart-context";
@@ -54,7 +53,6 @@ export default function TestPaymentGatewayPage() {
 
   return (
     <main>
-      <Navbar />
       <section className="mx-auto max-w-md px-6 pb-16 pt-28 md:pb-24 md:pt-32">
         <div className="rounded-soft border border-ink/10 bg-paper p-7">
           <div className="flex items-center justify-between">

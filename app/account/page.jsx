@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { formatPrice } from "@/lib/products";
 import { useAuth } from "@/lib/auth-context";
@@ -35,7 +34,6 @@ export default function AccountPage() {
 
   return (
     <main>
-      <Navbar />
       <section className="mx-auto max-w-4xl px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-32">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>

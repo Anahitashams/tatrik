@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BrokenPotArt from "@/components/art/BrokenPotArt";
 
@@ -10,7 +9,6 @@ export const metadata = {
 export default function NotFound() {
   return (
     <main>
-      <Navbar />
       <section className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 overflow-hidden px-6 pb-24 pt-28 md:grid-cols-[1.05fr_1fr] md:gap-16 md:px-10 md:pb-32 md:pt-36">
         <div className="aura-field" />
 

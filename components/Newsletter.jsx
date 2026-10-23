@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Reveal from "./Reveal";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ export default function Newsletter() {
 
   return (
     <section id="newsletter" className="bg-ink">
-      <div className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-20">
+      <Reveal className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-20">
         <div className="grid items-center gap-8 md:grid-cols-2">
           <div>
             <h2 className="font-display text-2xl text-cream md:text-3xl">
@@ -57,6 +58,8 @@ export default function Newsletter() {
                 id="email"
                 type="email"
                 required
+                maxLength={254}
+                autoComplete="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="ایمیل شما"
@@ -86,7 +89,7 @@ export default function Newsletter() {
             )}
           </form>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

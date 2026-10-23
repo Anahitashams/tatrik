@@ -165,6 +165,8 @@ export default function VerifyOtpForm() {
             <input
               autoFocus
               required
+              minLength={2}
+              maxLength={60}
               value={name}
               onChange={(event) => setName(event.target.value)}
               className={inputClass}
