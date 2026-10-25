@@ -259,4 +259,53 @@
       animation: none !important;
     }
   }
+
+  /* Hero's named-areas grid (moved here from a styled-jsx <style jsx>
+     block - styled-jsx needs a Client Component, and Hero intentionally
+     stays a Server Component). Mobile order is copy -> images -> actions;
+     desktop regroups copy+actions into one column beside the images. */
+  .hero-grid {
+    grid-template-areas: "copy" "images" "actions";
+  }
+  .hero-copy {
+    grid-area: copy;
+  }
+  .hero-images {
+    grid-area: images;
+  }
+  .hero-actions {
+    grid-area: actions;
+  }
+  @media (min-width: 768px) {
+    .hero-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas: "copy images" "actions images";
+    }
+  }
+
+  /* SectionGlimmer's comet-sweep (moved here for the same reason as
+     .hero-grid above - SectionGlimmer stays a Server Component). */
+  .khak-comet-streak {
+    animation: khak-comet-sweep 6s ease-in-out infinite;
+  }
+  @keyframes khak-comet-sweep {
+    0% {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    48% {
+      opacity: 1;
+    }
+    60% {
+      transform: translateX(-280%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(-280%);
+      opacity: 0;
+    }
+  }
 }

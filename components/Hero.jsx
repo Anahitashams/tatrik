@@ -102,27 +102,6 @@ export default function Hero() {
 
       {/* خیلی ظریف برای اتصال Hero به بخش بعدی */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#F2ECE1]/30 to-transparent" />
-
-      <style jsx>{`
-        .hero-grid {
-          grid-template-areas: "copy" "images" "actions";
-        }
-        .hero-copy {
-          grid-area: copy;
-        }
-        .hero-images {
-          grid-area: images;
-        }
-        .hero-actions {
-          grid-area: actions;
-        }
-        @media (min-width: 768px) {
-          .hero-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            grid-template-areas: "copy images" "actions images";
-          }
-        }
-      `}</style>
     </section>
   );
 }

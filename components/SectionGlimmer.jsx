@@ -17,31 +17,6 @@ export default function SectionGlimmer({ className = "", tone = "sky" }) {
           background: `linear-gradient(90deg, transparent, ${toneColor}, transparent)`,
         }}
       />
-      <style jsx>{`
-        .khak-comet-streak {
-          animation: khak-comet-sweep 6s ease-in-out infinite;
-        }
-        @keyframes khak-comet-sweep {
-          0% {
-            transform: translateX(120%);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          48% {
-            opacity: 1;
-          }
-          60% {
-            transform: translateX(-280%);
-            opacity: 0;
-          }
-          100% {
-            transform: translateX(-280%);
-            opacity: 0;
-          }
-        }
-      `}</style>
     </div>
   );
 }
