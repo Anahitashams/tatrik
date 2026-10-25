@@ -13,10 +13,18 @@ export default function Hero() {
             crash in this Next.js version. A plain tag sidesteps that
             lifecycle entirely for a static local asset that doesn't need
             next/image's optimization pipeline. */}
+        {/* .webp instead of the original .png: same image, ~89KB instead
+            of 2.3MB - that PNG alone was the single biggest reason the
+            site felt slow to load, especially as the LCP (largest
+            contentful paint) element on the very first screen. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/background.png"
+          src="/images/background.webp"
           alt=""
+          width={1536}
+          height={1024}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-[65%_center] md:object-center"
         />
 
